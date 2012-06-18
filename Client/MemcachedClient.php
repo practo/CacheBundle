@@ -19,7 +19,6 @@ class MemcachedClient implements CacheClientInterface
 	protected $mem = null;
 	protected $servers = array();
 	protected $sockttl = 0.2;
-	protected $compression = false;
 
 	/**
    * Constructs the cache client using an injected Memcached instance
@@ -152,7 +151,7 @@ class MemcachedClient implements CacheClientInterface
 	{
 		if ( $this->isSafe() )
 		{
-			return $this->mem->set( $key, $value, $this->compression, $ttl );
+			return $this->mem->set( $key, $value, $ttl );
 		}
 		else
 		{

@@ -1,15 +1,18 @@
 parameters:
     beryllium_cache.class: Beryllium\CacheBundle\Cache
-    beryllium_cache.client.class: Beryllium\CacheBundle\Client\MemcacheClient
+    beryllium_cache.client.class: Beryllium\CacheBundle\Client\MemcachedClient
     beryllium_cache.client.memcache.class: Memcache
+    beryllium_cache.client.memcached.class: Memcached
     beryllium_cache.client.servers: { 127.0.0.1 : 11211 }
 
 services:
-    beryllium_cache.client.memcache: 
+    beryllium_cache.client.memcache:
       class: %beryllium_cache.client.memcache.class%
+    beryllium_cache.client.memcached:
+      class: %beryllium_cache.client.memcached.class%
     beryllium_cache.client:
       class: %beryllium_cache.client.class%
-      arguments: [@beryllium_cache.client.memcache]
+      arguments: [@beryllium_cache.client.memcached]
       calls:
         - [ addServers, [ %beryllium_cache.client.servers% ] ]
     beryllium_cache:
